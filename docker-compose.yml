@@ -1,0 +1,17 @@
+services:
+  users-service:
+    build: users/.
+    ports:
+      - "8080:8080"
+
+  products-service:
+    build: products/.
+    ports:
+      - "7070:7070"
+
+  orders-service:
+    build: orders/.
+    ports:
+      - "9090:9090"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
