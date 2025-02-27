@@ -1,31 +1,23 @@
 package com.practice.microservices.controller;
 
 import com.practice.microservices.model.Product;
+import com.practice.microservices.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/products")
 public class ProductController {
-    private final List<Product> products = new ArrayList<>();
-    private int nextId = 1;
+    private final ProductRepository productRepository;
 
     @PostMapping
     public Product create(@RequestBody Product product) {
-        product.setId(nextId++);
-        products.add(product);
-        return product;
+        return productRepository.save(product);
     }
 
     @GetMapping("/{id}")
     public Product findById(@PathVariable int id) {
-        return products.stream()
-                .filter(product -> product.getId() == id)
-                .findFirst()
-                .orElseThrow();
+        return productRepository.findById(id).orElseThrow();
     }
 }
