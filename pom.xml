@@ -25,6 +25,7 @@
         <module>users</module>
         <module>products</module>
         <module>orders</module>
+        <module>exception</module>
     </modules>
     <scm>
         <connection/>

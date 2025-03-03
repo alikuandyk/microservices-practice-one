@@ -1,5 +1,6 @@
 package com.practice.microservices.controller;
 
+import com.practice.microservices.NotFoundException;
 import com.practice.microservices.model.Product;
 import com.practice.microservices.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public Product findById(@PathVariable int id) {
-        return productRepository.findById(id).orElseThrow();
+        return productRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Товар с id=" + id + " не найден"));
     }
 }
